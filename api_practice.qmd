@@ -1,0 +1,37 @@
+---
+title: "API Practice day 3: USGS Data"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(purrr)
+library(dataRetrieval)
+```
+
+```{r}
+site_number <- "11118500"
+ parameter_cd <- "00060"
+ stat_cd  <- c("00001", "00003")
+start_date <- "2023-08-19"
+end_date <- "2023-08-22"
+```
+
+```{r}
+discharge <- readNWISuv(site_number, parameter_cd, start_date, end_date)
+```
+
+```{r}
+ggplot(discharge, aes(x = dateTime, y = X_00060_00000)) +
+  geom_line() +
+  theme_light() +
+  labs(x = "Date",
+       y = "Discharge(cubic ft per second)",
+       title = "Stream flow of the Ventura River during tropical storm",
+       caption = "The highest value is 42.2 cubic meters pers second")
+```
+
+
+
+
